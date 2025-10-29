@@ -9,9 +9,17 @@ from app.auth import hash_password, verify_password, create_access_token
 app = FastAPI(title="FastAPI Neon Auth")
 
 # CORS: allow your Google AI Studio frontend and localhost for development.
+origins = [
+    "https://aistudio.google.com",
+    "https://studio.google.com",
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://studio.google.com", "http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
