@@ -1,11 +1,21 @@
 import os
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.status import HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 from app import db
 from app.schemas import UserCreate, UserOut, Token
 from app.auth import hash_password, verify_password, create_access_token
 
 app = FastAPI(title="FastAPI Neon Auth")
+
+# CORS: allow your Google AI Studio frontend and localhost for development.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://studio.google.com", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
